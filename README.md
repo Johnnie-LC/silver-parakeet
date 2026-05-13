@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marketplace Frontend
 
-## Getting Started
+Frontend de un marketplace construido con Next.js App Router, TypeScript,
+Tailwind CSS, Vitest y Zustand. El proyecto usa datos mock locales y sirve
+como ejemplo de Harness Engineering aplicado a una app React.
 
-First, run the development server:
+## Stack
+
+- Next.js 16
+- React 19
+- TypeScript 5
+- Tailwind CSS 4
+- Zustand
+- Vitest + Testing Library
+
+## Scripts
+
+```bash
+npm run dev         # entorno de desarrollo
+npm run build       # build de produccion
+npm run start       # servir build de produccion
+npm run lint        # eslint
+npm run typecheck   # tsc --noEmit
+npm run test        # vitest run
+npm run test:watch  # vitest en watch mode
+./init.sh           # verificacion completa del proyecto
+```
+
+## Rutas principales
+
+- `/` listado de productos con busqueda y filtros
+- `/products/[id]` detalle de producto
+- `/cart` carrito de compras
+- `/checkout` checkout simulado
+
+## Funcionalidad implementada
+
+- Catalogo con mock data tipada
+- Cards de producto y detalle de producto
+- Layout global con header, footer y badge de carrito
+- Store global de carrito con Zustand
+- Pagina de carrito con controles de cantidad
+- Checkout con validacion basica y confirmacion
+- Busqueda por nombre y filtros por categoria y precio
+
+## Estructura
+
+```text
+src/
+  app/          rutas y layout de Next.js
+  components/   UI por dominio: layout, products, cart
+  lib/          tipos, mock data y store de Zustand
+tests/          tests de componentes y logica
+docs/           arquitectura, convenciones y verificacion
+progress/       estado de sesion e historial
+```
+
+## Desarrollo local
+
+1. Instala dependencias:
+
+```bash
+npm install
+```
+
+2. Inicia el entorno de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Abre `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verificacion
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+La forma canonica de validar el repo es:
 
-## Learn More
+```bash
+./init.sh
+```
 
-To learn more about Next.js, take a look at the following resources:
+Ese comando ejecuta:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- type-check
+- lint
+- tests
+- build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Nota: el build usa `next/font` con Geist y puede requerir acceso de red para
+descargar las fuentes de Google durante la compilacion.

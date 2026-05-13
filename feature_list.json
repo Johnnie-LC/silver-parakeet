@@ -1,0 +1,148 @@
+{
+  "project": "marketplace-frontend",
+  "description": "Marketplace frontend en Next.js. Ejemplo didáctico de Harness Engineering aplicado a React.",
+  "rules": {
+    "one_feature_at_a_time": true,
+    "require_tests_to_close": true,
+    "valid_status": ["pending", "in_progress", "done", "blocked"]
+  },
+  "features": [
+    {
+      "id": 1,
+      "name": "project_bootstrap",
+      "title": "Bootstrap del proyecto y arnés",
+      "description": "Next.js + TypeScript + Tailwind + Vitest + Zustand configurados. Arnés completo (AGENTS.md, docs/, .claude/, feature_list.json, init.sh).",
+      "acceptance": [
+        "`./init.sh` termina con exit code 0",
+        "`npx tsc --noEmit` sin errores",
+        "`npm run build` exitoso",
+        "Estructura de directorios del arnés existe (docs/, .claude/agents/, progress/)"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 2,
+      "name": "types_and_mock_data",
+      "title": "Tipos TypeScript y datos mock",
+      "description": "Definir interfaces del dominio (Product, CartItem, Category) y mock data para desarrollo.",
+      "acceptance": [
+        "Existe src/lib/types.ts con interfaces Product, CartItem, Category",
+        "Existe src/lib/data.ts con array de productos mock",
+        "tests/lib/types.test.ts valida que los datos mock cumplen las interfaces"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 3,
+      "name": "product_list_page",
+      "title": "Página de listado de productos",
+      "description": "Grid responsivo de productos con ProductCard. Ruta `/` muestra todos los productos.",
+      "acceptance": [
+        "`src/app/page.tsx` renderiza un grid de ProductCard",
+        "Cada ProductCard muestra: imagen, título, precio, categoría",
+        "Responsivo: 1 columna móvil, 2 tablet, 3+ desktop",
+        "tests/components/products/ProductCard.test.tsx cubre renderizado"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 4,
+      "name": "product_detail_page",
+      "title": "Página de detalle de producto",
+      "description": "Ruta `/products/[id]` con info completa del producto y botón agregar al carrito.",
+      "acceptance": [
+        "`/products/[id]` muestra: imagen grande, título, descripción, precio, categoría",
+        "Mensaje claro si el id no existe (no página 404 genérica)",
+        "Botón \"Agregar al carrito\" agrega el producto al store de Zustand",
+        "tests/components/products/ProductDetail.test.tsx cubre éxito y error"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 5,
+      "name": "layout_and_nav",
+      "title": "Layout global y navegación",
+      "description": "Header con logo, navegación, ícono de carrito con badge de cantidad. Footer responsivo.",
+      "acceptance": [
+        "Header con logo \"Marketplace\", links a Home y Cart",
+        "Ícono de carrito muestra badge con cantidad de items (desde Zustand)",
+        "Footer con año actual y links",
+        "Layout responsivo en móvil y desktop",
+        "tests/components/layout/*.test.tsx cubren Header y Footer"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 6,
+      "name": "shopping_cart_store",
+      "title": "Store de carrito con Zustand",
+      "description": "Estado global del carrito: agregar, remover, cambiar cantidad, calcular total.",
+      "acceptance": [
+        "Store Zustand en src/lib/store.ts con: items, addItem, removeItem, updateQuantity, total",
+        "addItem: agrega producto o incrementa cantidad si ya existe",
+        "removeItem: elimina por productId",
+        "updateQuantity: actualiza cantidad, remueve si llega a 0",
+        "total: suma de precio * cantidad de cada item",
+        "tests/lib/cart-store.test.ts cubre todas las operaciones"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 7,
+      "name": "cart_page",
+      "title": "Página de carrito",
+      "description": "Ruta `/cart` con listado de items, controles de cantidad y resumen con total.",
+      "acceptance": [
+        "Lista cada item con: imagen pequeña, título, precio unitario, cantidad, subtotal",
+        "Controles + y - para cambiar cantidad",
+        "Botón eliminar por item",
+        "Resumen: subtotal, total",
+        "Si carrito vacío: mensaje \"Tu carrito está vacío\" + link a Home",
+        "tests/components/cart/CartPage.test.tsx cubre items y vacío"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 8,
+      "name": "checkout_page",
+      "title": "Página de checkout",
+      "description": "Ruta `/checkout` con formulario simulado y resumen de orden.",
+      "accessibility": [
+        "Formulario con campos: nombre, email, dirección, tarjeta (solo UI, no procesa)",
+        "Resumen de la orden: items, total",
+        "Validación básica: campos requeridos, email válido",
+        "Botón \"Confirmar pedido\" muestra mensaje de éxito y vacía el carrito",
+        "tests/components/cart/CheckoutPage.test.tsx cubre formulario y validación"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 9,
+      "name": "search_and_filters",
+      "title": "Búsqueda y filtros",
+      "description": "Barra de búsqueda por nombre y filtros por categoría y rango de precio.",
+      "acceptance": [
+        "Barra de búsqueda en la página principal filtra productos por nombre (case-insensitive)",
+        "Filtro por categoría (select o chips)",
+        "Filtro por rango de precio (mínimo y máximo)",
+        "Filtros combinables (ej. categoría X + precio Y)",
+        "Si no hay resultados: mensaje claro \"No se encontraron productos\"",
+        "tests/components/products/ProductFilters.test.tsx cubre filtros y combinaciones"
+      ],
+      "status": "done"
+    },
+    {
+      "id": 10,
+      "name": "create Readme",
+      "title": "Crear README del proyecto",
+      "description": "Documentar el proyecto, stack, scripts, rutas principales y forma de ejecutar verificaciones locales.",
+      "acceptance": [
+        "Existe `README.md` con descripción del proyecto y stack principal",
+        "Documenta scripts de desarrollo, build, lint, typecheck y tests",
+        "Incluye las rutas principales de la aplicación y las features implementadas",
+        "Incluye instrucciones de verificación local con `./init.sh`"
+      ],
+      "status": "done"
+    }
+  ]
+}
