@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const isGithubPages = process.env.GITHUB_ACTIONS === "true";
-const repoName = "marketplace-frontend";
+const repoName =
+  process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "silver-parakeet";
 
 const nextConfig: NextConfig = {
   output: "export",
