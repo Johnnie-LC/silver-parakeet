@@ -92,3 +92,12 @@
 - **Cambios:** Se actualizó `feature_list.json` para describir correctamente la feature 10. Se reemplazó `README.md` por documentación del stack, scripts, rutas, funcionalidades implementadas, estructura y verificación local.
 - **Verificación:** `./init.sh` verde. TypeScript, ESLint, 30 tests y build OK.
 - **Cierre:** feature 10 marcada `done`. No quedan features `pending`.
+
+---
+
+## 2026-05-13 — Ajuste de deploy GitHub Pages
+- **Agente:** Codex
+- **Plan:** Reproducir el problema de rutas publicado, comparar el export local de Pages con el HTML servido por GitHub Pages y tocar solo el workflow si el código actual ya estaba bien.
+- **Cambios:** Se verificó que el build local con `GITHUB_ACTIONS=true` ya emite rutas bajo `/silver-parakeet/`. Se confirmó que el sitio publicado seguía sirviendo assets y links bajo `/marketplace-frontend/`, por lo que estaba desfasado respecto a `main`. Se añadió `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` a `.github/workflows/deploy-pages.yml` para forzar un nuevo deploy desde el estado correcto de `main` y adelantar la migración del runtime de Actions.
+- **Verificación:** `./init.sh` verde. Además, el HTML publicado antes del cambio se comprobó con `curl` y seguía apuntando a `/marketplace-frontend/`.
+- **Cierre:** sesión lista para commit/push y redeploy de GitHub Pages.
